@@ -1,0 +1,21 @@
+#define motor 7
+#define trigpin 4
+#define echopin 3
+void loop()
+{
+long duration, distance;
+digitalWrite(trigpin,HIGH);
+delayMicroseconds(2);
+digitalWrite(trigpin,LOW);
+duration=pulseIn(echopin,HIGH);
+distance =(duration/1)/29.1;
+duration=pulseIn(echopin,LOW);
+if(distance<=10)
+{
+digitalWrite(motor,HIGH);
+}
+else
+{
+digitalWrite(motor,LOW);
+}
+}
