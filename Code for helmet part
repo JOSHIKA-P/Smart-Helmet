@@ -1,0 +1,66 @@
+#define sensorDigital 8
+#define buzzer 2
+#define sensorAnalog A0
+#define trigpin 4
+#define echopin 3
+float temp;
+void setup()
+{
+pinMode(trigpin,OUTPUT);
+pinMode(echopin,INPUT);
+pinMode(sensorDigital,INPUT);
+pinMode(buzzer,OUTPUT);
+pinMode(A1,INPUT);
+pinMode(5,OUTPUT);
+pinMode(6,OUTPUT);
+Serial.begin(9600);
+}
+void loop()
+{
+int temp=analogRead(A1);
+temp=temp*0.48828125;
+Serial.print("TEMPERATURE = ");
+Serial.print(temp);
+Serial.print("*C");
+Serial.println();
+bool digital=digitalRead(sensorDigital);
+int analog=analogRead(sensorAnalog);
+long duration, distance;
+digitalWrite(trigpin,HIGH);
+delayMicroseconds(2);
+digitalWrite(trigpin,LOW);
+duration=pulseIn(echopin,HIGH);
+distance =(duration/1)/29.1;
+duration=pulseIn(echopin,LOW);
+Serial.print("DISTANCE = ");
+Serial.print(distance);
+Serial.print("cm");
+Serial.println();
+Serial.print("ALCOHOL CONTENT = ");
+Serial.print(analog);
+Serial.println(); if(distance<=10)
+{
+digitalWrite(buzzer,HIGH);
+}
+else
+{
+29
+digitalWrite(buzzer,LOW);
+}
+if(digital>=350)
+{
+digitalWrite(6,HIGH);
+}
+else
+{
+digitalWrite(6,LOW);
+}
+if(temp>35)
+{
+digitalWrite(5,HIGH);delay(1000);
+}
+else
+{
+digitalWrite(5,LOW);delay(1000);
+}
+}
